@@ -1,9 +1,11 @@
 //Criando componentes
 import { useEffect, useState } from 'react';
 import api from '../services/api'; //Importando API
+import { Link } from 'react-router-dom';
+import "./home.css";
 
 function Home() {
-    const [filmes, useFilme] = useState([]);//Criando useState para quando percorrer a API
+    const [filmes, setFilme] = useState([]);//Criando useState para quando percorrer a API
 
     useEffect(() => {//Criando useEffect para quando inicializar o programa ser ativado.
         
@@ -17,7 +19,9 @@ function Home() {
                 }
             }) ;//Dentro do parêntese vai ficar a roda que estamos querendo puxar
 
-            console.log(response.data.results);//Entrando dentro da API pelos seus índices. response(API geral) -> response.data(API no índice data) -> response.data.results(API dentro de data que contém o results);
+            setFilme(response.data.results.slice(0, 5));
+            console.log(response.data.results.slice(0, 2));
+
         }
 
         loadFilmes();
@@ -25,8 +29,18 @@ function Home() {
     }, []);
 
     return(
-        <div>
-            <h1>Bem Vindo a Home</h1>
+        <div className='container'>
+            <div className='list-films'>
+                {filmes.map((filme)=> {//Percorrendo o useState e renderizando para as rotas
+                    return(
+                        <article key={filme.id}>
+                            <strong>{filme.title}</strong>
+                            <img src={`https://image.tmdb.org/t/p/original/${filme.poster_path}`} alt={filme.title}></img>
+                            <Link to={`/films/${filme.id}`}>Acessar</Link>
+                        </article>
+                    )
+                })}
+            </div>
         </div>
     )
 }

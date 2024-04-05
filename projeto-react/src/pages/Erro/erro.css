@@ -1,0 +1,21 @@
+.notfound {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 14px;
+    flex-direction: column;
+}
+
+.notfound h2 {
+    margin: 14px auto;
+}
+
+.notfound a {
+    text-decoration: none;
+    background-color: rgb(0, 110, 255);
+    color: white;
+    font-weight: bolder;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}

@@ -6,6 +6,8 @@ import "./home.css";
 
 function Home() {
     const [filmes, setFilme] = useState([]);//Criando useState para quando percorrer a API
+    const [loading, setLoading] = useState(true);//Criando loading
+
 
     useEffect(() => {//Criando useEffect para quando inicializar o programa ser ativado.
         
@@ -19,14 +21,25 @@ function Home() {
                 }
             }) ;//Dentro do parêntese vai ficar a roda que estamos querendo puxar
 
-            setFilme(response.data.results.slice(0, 5));
-            console.log(response.data.results.slice(0, 2));
+            setFilme(response.data.results.slice(0, 10));
+            setLoading(false);
 
         }
 
         loadFilmes();
 
     }, []);
+
+    if(loading) {
+        return(
+            <div className='loading'> 
+                <h2>
+                    Carregando filmes...
+                </h2>
+            </div>
+        )
+    }
+
 
     return(
         <div className='container'>

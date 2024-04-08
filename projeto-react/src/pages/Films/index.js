@@ -1,6 +1,6 @@
 import "./films.css";
 import {useState, useEffect} from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import api from "../services/api";
 
 
@@ -12,6 +12,7 @@ function Films() {
     const { id } = useParams({});
     const [detalhes, setDetalhes] = useState({});
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
     
     useEffect(() => {
         async function loadFilms() {
@@ -27,6 +28,8 @@ function Films() {
                 setLoading(false);
             }).catch(()=> {
                 console.log('Filme desconhecido');
+                navigate('/', { replace: true});//Esse método vai redirecionar o usuário para a página que for colocada como parâmetro.
+                return;
             });
             
         }
@@ -37,24 +40,51 @@ function Films() {
             console.log('Componente desmontado');
         })
 
-    }, []);
+    }, [navigate, id]);
+
+    function salvarFilme() { //Salvando no LocalStorage
+        const minhaLista = localStorage.getItem("@primeflix");//Craindo armazenamento
+        
+        let filmesSalvos = JSON.parse(minhaLista) || []; //Inicializando com os itens ou vazia
+
+        //Comparando se o item adicionado é igual a algum filme do useState() 
+        const hasFilme = filmesSalvos.some( (filmesSalvo) => filmesSalvo.id === detalhes.id)
+        
+        if (hasFilme) {
+            alert("ESSE FILME JÁ ESTÁ NA LISTA");
+            return;
+        }
+
+        //Se não for igual, é adicionado e trasnformado em JSON.
+        filmesSalvos.push(detalhes);
+        localStorage.setItem("@primeflix", JSON.stringify(filmesSalvos));
+    }
+
 
     if (loading) {
         return(
             <div className='loading'> 
-                
+                <h1>Carregando detalhes...</h1>
             </div>
         )
     }
 
     return (
-        <div className="container">
+        <div className="detalhes">
             <h1>{detalhes.title}</h1>
             <img src={`https://image.tmdb.org/t/p/original/${detalhes.backdrop_path}`} alt={detalhes.title}></img>
             <h3>Sinopse</h3>
             <span className="details">{detalhes.overview}</span>
-            <strong>{detalhes.vote_average} / 10 </strong>
+            <strong>{`Avaliação: ${detalhes.vote_average.toFixed(1)}/10 `}</strong>
+
+            <div className="area-button">
+                <button onClick={salvarFilme}>+ Minha lista</button>
+                <button>
+                    <a target="blank" href={`https://youtube.com/results?search_query=}${detalhes.title} Trailer`}>Trailer</a>
+                </button>
+            </div>
         </div>
+        
    )
 }
 

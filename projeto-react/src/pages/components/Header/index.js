@@ -6,7 +6,7 @@ function Header(params) {
     return(
         <header>
             <Link className='logo' to='/'>Prime Flix</Link>
-            <Link className='favoritos' to='/films/:id'>Sua lista de desejos</Link>
+            <Link className='favoritos' to='/favoritos'>Sua lista de desejos</Link>
         </header>
     )
 }

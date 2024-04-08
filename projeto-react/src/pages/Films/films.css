@@ -1,0 +1,60 @@
+.loading {
+    font-size: 10px;
+}
+
+.detalhes {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    padding: 10px;
+}
+
+.detalhes h1 {
+    font-size: 20px;
+    margin: 20px auto;
+}
+
+.detalhes img {
+    max-width: 400px;
+    border-radius: 4px;
+}
+
+.detalhes h3 {
+    font-size: 15px;
+    margin: 20px auto 10px auto;
+}
+
+.detalhes span {
+    text-align: justify;
+    max-width: 400px;
+    line-height: 1.5;
+}
+
+.detalhes strong {
+    margin: 20px auto;
+}
+
+.area-button button{
+    margin: auto 13px;
+    text-decoration: none;
+    padding: 6px 10px;
+    font-size: 18px;
+    color: white;
+    background-color: rgb(0, 110, 255);
+    border: none;
+    border-radius: 4px;
+    font-weight: bolder;
+    cursor: pointer;
+}
+
+.area-button button:hover {
+    background-color: white;
+    color: rgb(0, 110, 255);
+    border: 1px solid rgb(0, 110, 255);
+}
+.area-button button a {
+    text-decoration: none;
+    color: white;
+}
